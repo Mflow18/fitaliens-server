@@ -1,19 +1,24 @@
 const mongodbKey = require("../secret_keys/Constant");
+const mongoose = require("mongoose");
 
 const path = require("path");
 const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = mongodbKey.MONGODB_API_CONNECT;
-const client = new MongoClient(uri, {
+const url = mongodbKey.MONGODB_API_CONNECT;
+const connectionParams = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverApi: ServerApiVersion.v1,
-});
-client.connect((err) => {
-  const collection = client.db("fitaliens").collection("sample_geospatial");
-  // perform actions on the collection object
-  client.close();
-});
+};
+
+console.log(url);
+mongoose
+  .connect(url, connectionParams)
+  .then(() => {
+    console.log("Connected to the database ");
+  })
+  .catch((err) => {
+    console.error(`Error connecting to the database. n${err}`);
+  });
 
 const PORT = process.env.PORT || 3001;
 
