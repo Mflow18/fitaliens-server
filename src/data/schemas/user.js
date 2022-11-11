@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    lowercase: true,
+    required: [true, "can't be blank"],
+    match: [/^[a-zA-Z0-9]+$/, "is invalid"],
+    index: true,
   },
   age: {
     type: Number,
@@ -11,6 +14,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", UserSchema);
-
-module.exports = User;
+module.exports = UserSchema;

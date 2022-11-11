@@ -1,9 +1,10 @@
 const mongodbKey = require("../secret_keys/Constant");
 const mongoose = require("mongoose");
+const Exercise = require("../src/data/models/exercise");
 
 const path = require("path");
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+
 const url = mongodbKey.MONGODB_API_CONNECT;
 const connectionParams = {
   useNewUrlParser: true,
@@ -23,6 +24,7 @@ mongoose
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+app.use(express.json());
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
@@ -31,21 +33,52 @@ app.get("/api", (req, res) => {
 
 const FAKE_WORKOUTS_TEMP = [
   {
-    name: "Pull ups",
+    name: "HIIT",
   },
   {
-    name: "Push ups",
+    name: "Power",
+  },
+];
+
+const FAKE_EXERCISES = [
+  {
+    name: "Chest",
   },
   {
-    name: "Squats",
+    name: "Back",
   },
   {
-    name: "Deadlifts",
+    name: "Legs",
+  },
+  {
+    name: "Abs",
   },
 ];
 
 app.get("/workouts", (req, res) => {
   res.json({ data: FAKE_WORKOUTS_TEMP });
+});
+
+app.get("/exercises", (req, res) => {
+  res.json({ data: FAKE_EXERCISES });
+});
+
+app.post("/exercises", (req, res) => {
+  console.log(req.body);
+  const exercise = new Exercise({
+    name: req.body.name,
+  })
+    .save()
+    .then(() => {
+      res.status(201).json({
+        message: "Exercise saved successfully!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
 });
 
 app.listen(PORT, () => {
