@@ -60,7 +60,11 @@ app.get("/workouts", (req, res) => {
 });
 
 app.get("/exercises", (req, res) => {
-  res.json({ data: FAKE_EXERCISES });
+  Exercise.find({})
+    .lean()
+    .exec((err, doc) => {
+      res.json({ data: doc });
+    });
 });
 
 app.post("/exercises", (req, res) => {
