@@ -40,21 +40,6 @@ const FAKE_WORKOUTS_TEMP = [
   },
 ];
 
-const FAKE_EXERCISES = [
-  {
-    name: "Chest",
-  },
-  {
-    name: "Back",
-  },
-  {
-    name: "Legs",
-  },
-  {
-    name: "Abs",
-  },
-];
-
 app.get("/workouts", (req, res) => {
   res.json({ data: FAKE_WORKOUTS_TEMP });
 });
