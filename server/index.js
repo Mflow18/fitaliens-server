@@ -59,9 +59,13 @@ app.post("/exercises", (req, res) => {
   })
     .save()
     .then(() => {
-      res.status(201).json({
-        message: "Exercise saved successfully!",
-      });
+      Exercise.find({})
+        .lean()
+        .exec((err, doc) => {
+          res
+            .status(201)
+            .json({ message: "Exercise created successfully", data: doc });
+        });
     })
     .catch((error) => {
       res.status(400).json({
