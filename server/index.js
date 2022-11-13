@@ -53,7 +53,6 @@ app.get("/exercises", (req, res) => {
 });
 
 app.post("/exercises", (req, res) => {
-  console.log(req.body);
   const exercise = new Exercise({
     name: req.body.name,
   })
