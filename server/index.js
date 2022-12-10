@@ -73,6 +73,25 @@ app.post("/exercises", (req, res) => {
     });
 });
 
+app.delete("/exercises", (req, res) => {
+  Exercise.find({ name: req.body.name })
+    .remove()
+    .then(() => {
+      Exercise.find({})
+        .lean()
+        .exec((err, doc) => {
+          res
+            .status(201)
+            .json({ message: "Exercise created successfully", data: doc });
+        });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
