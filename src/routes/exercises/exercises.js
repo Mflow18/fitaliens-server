@@ -2,7 +2,7 @@ const Exercise = require("../../data/models/exercise");
 const express = require("express");
 const app = express.Router();
 
-app.get("/exercises", (req, res) => {
+app.get("/", (req, res) => {
   Exercise.find({})
     .lean()
     .exec((err, doc) => {
@@ -10,7 +10,7 @@ app.get("/exercises", (req, res) => {
     });
 });
 
-app.post("/exercises", (req, res) => {
+app.post("/", (req, res) => {
   const exercise = new Exercise({
     name: req.body.name,
   })
@@ -31,7 +31,7 @@ app.post("/exercises", (req, res) => {
     });
 });
 
-app.delete("/exercises", (req, res) => {
+app.delete("/", (req, res) => {
   Exercise.find({ name: req.body.name })
     .remove()
     .then(() => {

@@ -1,9 +1,10 @@
-const mongodbKey = require("../secret_keys/Constant");
+const express = require("express");
 const mongoose = require("mongoose");
 
-const express = require("express");
+const mongodbKey = require("../secret_keys/Constant");
 
-const exercisesRouter = require("./routes/exercises/exercises");
+// Router
+const mainRouter = require("./routes/index");
 
 // MongoDb Connection
 const url = mongodbKey.MONGODB_API_CONNECT;
@@ -26,27 +27,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.json());
-
-app.use("/", exercisesRouter);
-app.use("/exercises", exercisesRouter);
-
-// Handle GET requests to /api route
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
-
-const FAKE_WORKOUTS_TEMP = [
-  {
-    name: "HIIT",
-  },
-  {
-    name: "Power",
-  },
-];
-
-app.get("/workouts", (req, res) => {
-  res.json({ data: FAKE_WORKOUTS_TEMP });
-});
+app.use("/", mainRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
