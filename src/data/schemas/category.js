@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ExerciseSchema = new Schema({
+const CategorySchema = new Schema({
   name: { type: String },
-  categories: [
+  exercises: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "Exercise",
     },
   ],
 });
 
-module.exports = ExerciseSchema;
+module.exports = CategorySchema;
