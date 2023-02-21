@@ -1,4 +1,5 @@
 const Exercise = require("../data/models/exercise");
+const Category = require("../data/models/category");
 
 const getExercises = (req, res) => {
   Exercise.find({})
@@ -10,14 +11,15 @@ const getExercises = (req, res) => {
 
 const createExercise = (req, res) => {
   const categoriesName = req.body.categories;
-  const category = Category.findOne({ name: categoriesName }, (err, cat) => {
-    return cat;
-  });
+  const category = Category.findOne(
+    { name: categoriesName },
+    (err, cat) => cat
+  );
 
-  const exercise = new Exercise({
+  Exercise.create({
     name: req.body.name,
-  }).categories
-    .push(category)
+  })
+    .categories.push(category)
     .save()
     .then(() => {
       getExercises.exec((err, doc) => {
@@ -28,7 +30,7 @@ const createExercise = (req, res) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error,
       });
     });
 };
@@ -47,7 +49,7 @@ const deleteExercise = (req, res) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error,
       });
     });
 };
