@@ -1,53 +1,16 @@
-const Exercise = require("../../data/models/exercise");
 const express = require("express");
 const app = express.Router();
 
-app.get("/", (req, res) => {
-  Exercise.find({})
-    .lean()
-    .exec((err, doc) => {
-      res.json({ data: doc });
-    });
-});
+const {
+  getExercises,
+  createExercise,
+  deleteExercise,
+} = require("../../controllers/exerciseController.js");
 
-app.post("/", (req, res) => {
-  const exercise = new Exercise({
-    name: req.body.name,
-  })
-    .save()
-    .then(() => {
-      Exercise.find({})
-        .lean()
-        .exec((err, doc) => {
-          res
-            .status(201)
-            .json({ message: "Exercise created successfully", data: doc });
-        });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
-});
+app.get("/", getExercises);
 
-app.delete("/", (req, res) => {
-  Exercise.find({ name: req.body.name })
-    .remove()
-    .then(() => {
-      Exercise.find({})
-        .lean()
-        .exec((err, doc) => {
-          res
-            .status(201)
-            .json({ message: "Exercise created successfully", data: doc });
-        });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
-});
+app.post("/", createExercise);
+
+app.delete("/", deleteExercise);
 
 module.exports = app;
