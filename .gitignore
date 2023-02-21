@@ -2,3 +2,6 @@
 
 # constants
 secret_keys
+
+# modules
+node_modules
