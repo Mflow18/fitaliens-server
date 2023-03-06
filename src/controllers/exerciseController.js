@@ -3,24 +3,20 @@ const Category = require("../data/models/category");
 
 const getExercises = (req, res) => {
   Exercise.find({})
+    .populate("categories")
     .lean()
     .exec((err, doc) => {
       res.json({ data: doc });
     });
 };
 
-const createExercise = (req, res) => {
-  const categoriesName = req.body.categories;
-  const category = Category.findOne(
-    { name: categoriesName },
-    (err, cat) => cat
-  );
+const createExercise = async (req, res) => {
+  const category = await Category.findOne({ name: req.body.categories });
 
   Exercise.create({
     name: req.body.name,
+    categories: category,
   })
-    .categories.push(category)
-    .save()
     .then(() => {
       getExercises.exec((err, doc) => {
         res
