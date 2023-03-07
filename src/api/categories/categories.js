@@ -1,4 +1,3 @@
-const Category = require("../../data/models/category");
 const express = require("express");
 const app = express.Router();
 

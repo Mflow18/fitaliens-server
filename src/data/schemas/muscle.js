@@ -1,23 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ExerciseSchema = new Schema({
+const MuscleSchema = new Schema({
   name: {
     type: String,
     unique: true,
   },
-  categories: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
-    },
-  ],
-  muscles: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Muscle",
-    },
-  ],
   createdAt: {
     type: Date,
     immutable: true,
@@ -29,4 +17,4 @@ const ExerciseSchema = new Schema({
   },
 });
 
-module.exports = ExerciseSchema;
+module.exports = MuscleSchema;
