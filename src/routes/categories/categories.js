@@ -11,10 +11,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  const Category = new Category({
+  Category.create({
     name: req.body.name,
   })
-    .save()
     .then(() => {
       Category.find({})
         .lean()

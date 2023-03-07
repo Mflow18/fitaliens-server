@@ -18,11 +18,13 @@ const createExercise = async (req, res) => {
     categories: category,
   })
     .then(() => {
-      getExercises.exec((err, doc) => {
-        res
-          .status(201)
-          .json({ message: "Exercise created successfully", data: doc });
-      });
+      Exercise.find({})
+        .lean()
+        .exec((err, doc) => {
+          res
+            .status(201)
+            .json({ message: "Exercise created successfully", data: doc });
+        });
     })
     .catch((error) => {
       res.status(400).json({
