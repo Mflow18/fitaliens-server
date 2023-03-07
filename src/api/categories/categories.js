@@ -6,7 +6,7 @@ const {
   getCategories,
   createCategory,
   deleteCategory,
-} = require("../../controllers/categoryController.js");
+} = require("./categoryController.js");
 
 app.get("/", getCategories);
 

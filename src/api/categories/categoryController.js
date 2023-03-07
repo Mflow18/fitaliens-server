@@ -1,4 +1,4 @@
-const Category = require("../data/models/category");
+const Category = require("../../data/models/category");
 
 const getCategories = (req, res) => {
   Category.find({})

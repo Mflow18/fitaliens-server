@@ -1,5 +1,5 @@
-const Exercise = require("../data/models/exercise");
-const Category = require("../data/models/category");
+const Exercise = require("../../data/models/exercise");
+const Category = require("../../data/models/category");
 
 const getExercises = (req, res) => {
   Exercise.find({})

@@ -6,7 +6,7 @@ const {
   getExercises,
   createExercise,
   deleteExercise,
-} = require("../../controllers/exerciseController.js");
+} = require("./exerciseController.js");
 
 app.get("/", getExercises);
 

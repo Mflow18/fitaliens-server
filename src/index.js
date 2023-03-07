@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const mongodbKey = require("../secret_keys/Constant");
 
 // Router
-const mainRouter = require("./routes/index");
+const mainRouter = require("./api/index");
 
 // MongoDb Connection
 const url = mongodbKey.MONGODB_API_CONNECT;
