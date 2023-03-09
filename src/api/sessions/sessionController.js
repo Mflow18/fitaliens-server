@@ -1,24 +1,24 @@
-const Workout = require("../../data/models/workout");
+const Session = require("../../data/models/session");
 
-const getWorkouts = (req, res) => {
-  Workout.find({})
+const getSessions = (req, res) => {
+  Session.find({})
     .lean()
     .exec((err, doc) => {
       res.json({ data: doc });
     });
 };
 
-const createWorkout = async (req, res) => {
-  Workout.create({
+const createSession = async (req, res) => {
+  Session.create({
     name: req.body.name,
   })
     .then(() => {
-      Workout.find({})
+      Session.find({})
         .lean()
         .exec((err, doc) => {
           res
             .status(201)
-            .json({ message: "Workout created successfully", data: doc });
+            .json({ message: "Session created successfully", data: doc });
         });
     })
     .catch((error) => {
@@ -28,16 +28,16 @@ const createWorkout = async (req, res) => {
     });
 };
 
-const deleteWorkout = (req, res) => {
-  Workout.find({ name: req.body.name })
+const deleteSession = (req, res) => {
+  Session.find({ name: req.body.name })
     .remove()
     .then(() => {
-      Workout.find({})
+      Session.find({})
         .lean()
         .exec((err, doc) => {
           res
             .status(201)
-            .json({ message: "Workout deleted successfully", data: doc });
+            .json({ message: "Session deleted successfully", data: doc });
         });
     })
     .catch((error) => {
@@ -48,7 +48,7 @@ const deleteWorkout = (req, res) => {
 };
 
 module.exports = {
-  getWorkouts,
-  createWorkout,
-  deleteWorkout,
+  getSessions,
+  createSession,
+  deleteSession,
 };

@@ -40,7 +40,7 @@ const deleteCategory = (req, res) => {
         .exec((err, doc) => {
           res
             .status(201)
-            .json({ message: "Category created successfully", data: doc });
+            .json({ message: "Category deleted successfully", data: doc });
         });
     })
     .catch((error) => {

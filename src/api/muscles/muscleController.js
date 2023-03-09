@@ -37,7 +37,7 @@ const deleteMuscle = (req, res) => {
         .exec((err, doc) => {
           res
             .status(201)
-            .json({ message: "Muscle created successfully", data: doc });
+            .json({ message: "Muscle deleted successfully", data: doc });
         });
     })
     .catch((error) => {
