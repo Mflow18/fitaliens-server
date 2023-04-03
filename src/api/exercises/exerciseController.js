@@ -1,14 +1,14 @@
 const Exercise = require("../../data/models/exercise");
 const Category = require("../../data/models/category");
 
-const getExercises = (req, res) => {
-  Exercise.find({})
-    .populate("categories")
-    .lean()
-    .exec((err, doc) => {
-      res.json({ data: doc });
-    });
-};
+async function getAllExercices(req, res, next) {
+  try {
+    const exercices = await exerciceRepository.getAllExercices();
+    res.status(200).json(exercices);
+  } catch (err) {
+    next(err);
+  }
+}
 
 const createExercise = async (req, res) => {
   const category = await Category.findOne({ name: req.body.categories });
@@ -53,7 +53,7 @@ const deleteExercise = (req, res) => {
 };
 
 module.exports = {
-  getExercises,
+  getAllExercices,
   createExercise,
   deleteExercise,
 };

@@ -3,12 +3,12 @@ const express = require("express");
 const app = express.Router();
 
 const {
-  getExercises,
+  getAllExercices,
   createExercise,
   deleteExercise,
 } = require("./exerciseController.js");
 
-app.get("/", getExercises);
+app.get("/", getAllExercices);
 
 app.post("/", createExercise);
 
